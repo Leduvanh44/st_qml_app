@@ -131,10 +131,6 @@ Rectangle {
         }
     }
 
-    // Row {
-    //     enabled: client.state === MqttClient.Connected
-    //     Layout.columnSpan: 2
-    //     Layout.fillWidth: true
 
         Label {
             text: "Topic:"
@@ -195,32 +191,39 @@ Rectangle {
                     console.log("No topic specified to subscribe to.")
                     return
                 }
-                tempSubscription = client.subscribe(subField.text)
-                tempSubscription.messageReceived.connect(addMessage)
+                var Subscription = client.subscribe(subField.text)
+                Subscription.messageReceived.connect(addMessage)
             }
         }
 
+        Rectangle {
+            width: connect_rect.width*0.7
+            height: 100
+            color: "transparent" // Đặt màu nền của Rectangle là trong suốt
+            border.color: "black" // Màu của đường viền
+            border.width: 2 // Độ dày của đường viền
+            anchors.top: subField.bottom
+            anchors.topMargin: 25
+            anchors.horizontalCenter: connect_rect.horizontalCenter
+            ListView {
+                id: messageView
+                model: messageModel
+                height: parent.height // Chiều cao của ListView bằng với chiều cao của Rectangle
+                width: parent.width // Chiều rộng của ListView bằng với chiều rộng của Rectangle
+                clip: true
 
-    // ListView {
-    //     id: messageView
-    //     model: messageModel
-    //     height: 300
-    //     width: 200
-    //     Layout.columnSpan: 2
-    //     Layout.fillHeight: true
-    //     Layout.fillWidth: true
-    //     clip: true
-    //     delegate: Rectangle {
-    //         width: messageView.width
-    //         height: 30
-    //         color: index % 2 ? "#DDDDDD" : "#888888"
-    //         radius: 5
-    //         Text {
-    //             text: payload
-    //             anchors.centerIn: parent
-    //         }
-    //     }
-    // }
+                delegate: Rectangle {
+                    width: messageView.width
+                    height: 30
+                    color: index % 2 ? "#DDDDDD" : "#888888"
+                    radius: 5
+                    Text {
+                        text: payload
+                        anchors.centerIn: parent
+                    }
+                }
+            }
+        }
 
     Label {
         function stateToString(value) {
