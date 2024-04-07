@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>background_myapp.jpg</file>
+        <file>bk.PNG</file>
+        <file>viam.PNG</file>
+        <file>sign_menu.qml</file>
+        <file>work_menu.qml</file>
+        <file>connect_tab.qml</file>
+        <file>signup_tab.qml</file>
+    </qresource>
+</RCC>
